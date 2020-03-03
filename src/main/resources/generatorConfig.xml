@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--<properties resource="jdbc.properties"/>-->
+    <context defaultModelType="conditional" id="saleWrite" targetRuntime="MyBatis3">
+        <property name="renamePlugin.search" value=""/>
+        <property name="renamePlugin.replace" value=""/>
+        <property name="renamePlugin.prefix" value="MBG"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!-- 扩展插件，引入jar包的方式，否则报错 -->
+        <plugin type="info.luckydog.mybatisgenerator.plugin.MySQLRowBoundsPlugin"/>
+        <plugin type="info.luckydog.mybatisgenerator.plugin.RenamePlugin"/>
+        <plugin type="info.luckydog.mybatisgenerator.plugin.SeparateUserCodePlugin"/>
+        <!-- todo 以下自定义的插件、解析器、生成器，暂时不能用，原因待查 -->
+<!--        <plugin type="ParentExamplesPlugin">-->
+<!--            <property name="parentExample" value="info.luckydog.mybatisgenerator.entity.BaseExample"/>-->
+<!--        </plugin>-->
+        <!-- 自定义注释生成器 -->
+        <commentGenerator type="info.luckydog.mybatisgenerator.comment.CommentGenerator">
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!-- 自定义数据库字段类型与java类型间的映射-->
+<!--        <javaTypeResolver type="info.luckydog.mybatisgenerator.type.CustomJavaTypeResolver">-->
+<!--            <property name="customTypeMap"-->
+<!--                      value="TINYINT:java.lang.Integer,LONGVARCHAR:java.lang.String,TEXT:java.lang.String"/>-->
+<!--        </javaTypeResolver>-->
+        <!-- 数据库连接参数 -->
+        <jdbcConnection connectionURL="jdbc:mysql://192.168.3.49:3306/seckill?useUnicode=true"
+                        driverClass="com.mysql.jdbc.Driver"
+                        password="123456"
+                        userId="root"/>
+        <!-- 指定实体类路径 -->
+        <javaModelGenerator targetPackage="info.luckydog.mybatisgenerator.entity.work.nochange" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="renamePlugin.prefix" value=""/>
+        </javaModelGenerator>
+        <!-- 指定mapper.xml路径 -->
+        <sqlMapGenerator targetPackage="mappers.work.nochange" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+            <property name="separateUserCodePlugin.targetPackage" value="mappers.work"/>
+        </sqlMapGenerator>
+        <!-- 指定Mapper.java路径 -->
+        <javaClientGenerator targetPackage="info.luckydog.mybatisgenerator.mappers.work.nochange" targetProject="src/main/java"
+                             type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+            <property name="exampleMethodVisibility" value="public"/>
+            <property name="methodNameCalculator" value="default"/>
+            <property name="separateUserCodePlugin.targetPackage" value="info.luckydog.mybatisgenerator.mappers.work"/>
+            <property name="separateUserCodePlugin.search" value="\AMBG"/>
+            <property name="separateUserCodePlugin.replace" value=""/>
+        </javaClientGenerator>
+        <!-- 数据库表与实体映射 -->
+        <table schema="seckill" tableName="seckill" domainObjectName="Seckill">
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" identity="true" sqlStatement="MySql"/>
+        </table>
+    </context>
+</generatorConfiguration>
